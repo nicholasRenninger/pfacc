@@ -14,7 +14,7 @@ def main():
     (allLanes, allVelocities,
      allowedLaneVelocites, maxDist,
      maxTime, goalStates, initCarX,
-     initCarY, initCarT) = initialize.getSimSettings()
+     initCarY, initCarT, initCarVel) = initialize.getSimSettings()
 
     ########################################################
     # Defining the Occupancy Set
@@ -22,7 +22,11 @@ def main():
 
     POSMat = POS.makePOS(allLanes, allowedLaneVelocites,
                          maxDist, maxTime,
-                         initCarX, initCarY)
+                         initCarX, initCarY, initCarVel)
+
+    ########################################################
+    # Defining the Transition System
+    ########################################################
 
 
 if __name__ == "__main__":

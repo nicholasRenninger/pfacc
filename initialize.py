@@ -37,8 +37,11 @@ def getSimSettings():
     # start the simulation at a time step of 0
     initCarT = 0
 
+    # need to be safe and set some sort of min velocity
+    initCarVel = min(allowedLaneVelocites[initCarX])
+
     return (allLanes, allVelocities, allowedLaneVelocites, maxDist,
-            maxTime, goalStates, initCarX, initCarY, initCarT)
+            maxTime, goalStates, initCarX, initCarY, initCarT, initCarVel)
 
 
 def makeGoalStates(goalX, goalYMin, goalYMax):
