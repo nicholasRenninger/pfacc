@@ -21,7 +21,7 @@ class TransitionSystem:
     def __init__(self, initCarX, initCarY, initCarT, maxTime,
                  allLanes, allVelocities):
 
-        return 1
+        pass
 
     #
     # @brief      Calculates a boolean for whether the car is speeding
