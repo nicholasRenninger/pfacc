@@ -56,7 +56,8 @@ class TransitionSystem:
             allowedLanes = self.getAdjLanes(currNode.state.carX, allLanes)
 
             if (currNode.state.carT != maxTime):
-                print(currNode.state.carT, currNode.state.carX, currNode.state.carY, atGoal)
+                print(currNode.state.carT, currNode.state.carX,
+                      currNode.state.carY, atGoal)
                 for lane in allowedLanes:
                     for vel in allVelocities:
 

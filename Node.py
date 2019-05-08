@@ -15,7 +15,8 @@ class NodeState:
     # @param      prevVel   The previous velocity for the car during the last
     #                       time step
     #
-    def __init__(self, carX, carY, carT, q=None, prevLane=None, prevVel=None):
+    def __init__(self, carX=None, carY=None, carT=None, q=None,
+                 prevLane=None, prevVel=None):
 
         self.carX = carX
         self.carY = carY
