@@ -73,7 +73,7 @@ class TransitionSystem:
     #
     def inGoalStates(self, carX, carY, goalStates):
 
-        if (carX in goalStates) and (carY in goalStates):
+        if (carX, carY) in goalStates:
             return True
         else:
             return False
