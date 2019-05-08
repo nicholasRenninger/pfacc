@@ -1,9 +1,28 @@
-from OS_Calls import clear_screen
+import OS_Calls
+import initialize
+import POS
 
 
 def main():
 
-    clear_screen()
+    OS_Calls.clear_screen()
+
+    ########################################################
+    # defining simulation properties
+    ########################################################
+
+    (allLanes, allVelocities,
+     allowedLaneVelocites, maxDist,
+     maxTime, goalStates, initCarX,
+     initCarY, initCarT) = initialize.getSimSettings()
+
+    ########################################################
+    # Defining the Occupancy Set
+    ########################################################
+
+    POSMat = POS.makePOS(allLanes, allowedLaneVelocites,
+                         maxDist, maxTime,
+                         initCarX, initCarY)
 
 
 if __name__ == "__main__":
