@@ -70,9 +70,10 @@ class Node:
     # @param      isAccepting  Indicates if this Node is accepting in a DBA
     # @param      isVisited    Indicates if this Node has been visited during a
     #                          graph search
+    # @param      parent       The parent node
     #
     def __init__(self, state, index=None, obs=None, adjList=[],
-                 isAccepting=False, isVisited=False):
+                 isAccepting=False, isVisited=False, parent=None):
 
         self.state = state
         self.index = index
@@ -80,3 +81,4 @@ class Node:
         self.adjList = adjList
         self.isAccepting = isAccepting
         self.isVisited = isVisited
+        self.parent = parent
