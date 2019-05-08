@@ -4,8 +4,8 @@ def getSimSettings():
     # defining road simulation properties
     ########################################################
     allLanes = (0, 1, 2)
-    allVelocities = (30, 40, 50, 60, 70)
-    allowedLaneVelocites = [(30, 40, 50), (40, 50, 60), (50, 60, 70)]
+    allVelocities = (40, 50, 60, 70)
+    allowedLaneVelocites = [(40, 50), (50, 60), (60, 70)]
 
     ########################################################
     # defining the end of the simulation
@@ -15,7 +15,7 @@ def getSimSettings():
     maxDist = 600
 
     # simulate maxTime time steps
-    maxTime = 20
+    maxTime = 6
 
     goalX = 0
     goalYMin = 400
@@ -27,12 +27,12 @@ def getSimSettings():
     # defining the car's initial state
     ########################################################
 
-    # distance from the start of the highway where car starts
-    # CANT be 0
+    # lane number
     initCarX = 0
 
-    # lane number
-    initCarY = 150
+    # distance from the start of the highway where car starts
+    # CANT be 0
+    initCarY = 200
 
     # start the simulation at a time step of 0
     initCarT = 0

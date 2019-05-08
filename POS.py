@@ -5,6 +5,8 @@ import random
 def makePOS(allLanes, allowedLaneVelocites, maxDist, maxTime,
             initCarX, initCarY):
 
+    spaceFactor = 6
+
     numLanes = max(allLanes) + 1
     POS = numpy.zeros((numLanes, maxDist, maxTime))
 
@@ -13,12 +15,12 @@ def makePOS(allLanes, allowedLaneVelocites, maxDist, maxTime,
         # generating the spacing for the random other cars
         currLaneVelocityRange = allowedLaneVelocites[ii]
         minAllowedVelInLane = min(currLaneVelocityRange)
-        dist = random.randint(0, minAllowedVelInLane * 2)
+        dist = random.randint(0, minAllowedVelInLane * spaceFactor)
 
         # generating the obstacles for one time slice
         while dist < maxDist:
             POS[ii, dist, 0] = 1
-            dist = dist + random.randint(0, minAllowedVelInLane * 2)
+            dist = dist + random.randint(0, minAllowedVelInLane * spaceFactor)
 
         # make sure to delete any other car that happens to be at the initial
         # state of our car

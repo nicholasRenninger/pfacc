@@ -56,8 +56,6 @@ class TransitionSystem:
             allowedLanes = self.getAdjLanes(currNode.state.carX, allLanes)
 
             if (currNode.state.carT != maxTime):
-                print(currNode.state.carT, currNode.state.carX,
-                      currNode.state.carY, atGoal)
                 for lane in allowedLanes:
                     for vel in allVelocities:
 
@@ -107,12 +105,7 @@ class TransitionSystem:
                         # up nextNode
                         currNode.adjList.append(nextNode)
                         Nodes.append(currNode)
-
-                        if atGoal:
-                            self.DFA = DFA.DFA(nodes=Nodes, startNode=initNode)
-                            return
-                        else:
-                            nodeQueue.append(nextNode)
+                        nodeQueue.append(nextNode)
 
             else:
                 self.DFA = DFA.DFA(nodes=Nodes, startNode=initNode)
@@ -168,12 +161,12 @@ class TransitionSystem:
     #
     def inGoalStates(self, carX, carY, goalStates):
 
-        for i in range(0, len(goalStates)):
-            goalState = goalStates[i]
-            if (carX == goalState[0]) and (carY == goalState[1]):
-                return True
-
-        return False
+        minYGoalState = goalStates[0][1]
+        xGoalState = goalStates[0][0]
+        if (carX == xGoalState) and (carY > minYGoalState):
+            return True
+        else:
+            return False
 
     #
     # @brief      Calculates a boolean for whether the car has crashed into

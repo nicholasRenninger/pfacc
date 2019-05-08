@@ -19,6 +19,8 @@ def main():
      maxTime, goalStates, initCarX,
      initCarY, initCarT, initCarVel) = initialize.getSimSettings()
 
+    print('defined simulation properties')
+
     ########################################################
     # Defining the Occupancy Set
     ########################################################
@@ -27,25 +29,40 @@ def main():
                          maxDist, maxTime,
                          initCarX, initCarY)
 
+    print('built the occupancy set')
+
     ########################################################
     # Defining the Transition System
     ########################################################
+
+    print('building the transition system...')
+
     TS = TransitionSystem.TransitionSystem(initCarX, initCarY, initCarT,
                                            initCarVel, maxTime, allLanes,
                                            allVelocities, allowedLaneVelocites,
                                            goalStates, POSMat)
 
+    print('built the transition system')
+
     ########################################################
     # Defining the LTL Deterministic Buchi Automata (LDBA)
-    ########################################################
+    #######################################################
+
     LTLFormula = 'G(!crashed & !speeding) & F(atGoal)'
     LDBAObj = LDBA.LDBA(LTLFormula)
+
+    print('built the LDBA')
 
     ########################################################
     # Creating the Product Automata, using Topological Sort,
     # then backtracking for the solution
     ########################################################
+
+    print('calculating the product automata')
+
     acceptingGoalNode = DFA.formAndSolveProduct(TS=TS, LDBA=LDBAObj)
+
+    print('found the final solution node in the product')
 
     print(acceptingGoalNode)
 
