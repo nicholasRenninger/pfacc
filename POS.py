@@ -6,7 +6,7 @@ def makePOS(allLanes, allowedLaneVelocites, maxDist, maxTime,
             initCarX, initCarY):
 
     numLanes = max(allLanes)
-    POS = numpy.zeros(numLanes, maxDist, maxTime)
+    POS = numpy.zeros((numLanes, maxDist, maxTime))
 
     for ii in range(0, numLanes):
 
@@ -26,8 +26,8 @@ def makePOS(allLanes, allowedLaneVelocites, maxDist, maxTime,
 
         # propagating them forward through the time dimesion of the occupancy
         # set
-        for time in range(0, maxTime):
-            vbuf = time * minAllowedVelInLane
-            POS[ii, (vbuf + 1):, time + 1] = POS[ii, 1:-vbuf, 1]
+        for time in range(0, maxTime - 1):
+            vbuf = (time + 1) * minAllowedVelInLane
+            POS[ii, (vbuf + 1):, time + 1] = POS[ii, 1:-vbuf, 0]
 
     return POS

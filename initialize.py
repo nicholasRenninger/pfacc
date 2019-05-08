@@ -29,10 +29,10 @@ def getSimSettings():
 
     # distance from the start of the highway where car starts
     # CANT be 0
-    initCarX = 700
+    initCarX = 1
 
     # lane number
-    initCarY = 1
+    initCarY = 700
 
     # start the simulation at a time step of 0
     initCarT = 0
