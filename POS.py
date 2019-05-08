@@ -5,7 +5,7 @@ import random
 def makePOS(allLanes, allowedLaneVelocites, maxDist, maxTime,
             initCarX, initCarY):
 
-    numLanes = max(allLanes)
+    numLanes = max(allLanes) + 1
     POS = numpy.zeros((numLanes, maxDist, maxTime))
 
     for ii in range(0, numLanes):

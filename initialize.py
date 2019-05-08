@@ -3,23 +3,23 @@ def getSimSettings():
     ########################################################
     # defining road simulation properties
     ########################################################
-    allLanes = (1, 2, 3)
-    allVelocities = (15, 20, 25, 30, 35)
-    allowedLaneVelocites = [(15, 20, 25), (20, 25, 30), (25, 30, 35)]
+    allLanes = (0, 1, 2)
+    allVelocities = (30, 40, 50, 60, 70)
+    allowedLaneVelocites = [(30, 40, 50), (40, 50, 60), (50, 60, 70)]
 
     ########################################################
     # defining the end of the simulation
     ########################################################
 
     # pY ranges from 0 - 4000
-    maxDist = 4000
+    maxDist = 600
 
-    # simulate 100 time steps
-    maxTime = 100
+    # simulate maxTime time steps
+    maxTime = 20
 
-    goalX = 1
-    goalYMin = 2200
-    goalYMax = 2214
+    goalX = 0
+    goalYMin = 400
+    goalYMax = 500
 
     goalStates = makeGoalStates(goalX, goalYMin, goalYMax)
 
@@ -29,10 +29,10 @@ def getSimSettings():
 
     # distance from the start of the highway where car starts
     # CANT be 0
-    initCarX = 1
+    initCarX = 0
 
     # lane number
-    initCarY = 700
+    initCarY = 150
 
     # start the simulation at a time step of 0
     initCarT = 0

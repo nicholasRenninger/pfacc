@@ -1,6 +1,7 @@
 import OS_Calls
 import initialize
 import POS
+import TransitionSystem
 
 
 def main():
@@ -22,12 +23,15 @@ def main():
 
     POSMat = POS.makePOS(allLanes, allowedLaneVelocites,
                          maxDist, maxTime,
-                         initCarX, initCarY, initCarVel)
+                         initCarX, initCarY)
 
     ########################################################
     # Defining the Transition System
     ########################################################
-
+    TS = TransitionSystem.TransitionSystem(initCarX, initCarY, initCarT,
+                                           initCarVel, maxTime, allLanes,
+                                           allVelocities, allowedLaneVelocites,
+                                           goalStates, POSMat)
 
 if __name__ == "__main__":
     main()

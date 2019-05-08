@@ -9,7 +9,7 @@ class DFA:
     # @param      transFcn   The transaction function for the DFA
     # @param      accepts    A list of indices into nodes for Nodes that accept
     #
-    def __init__(self, nodes, startNode, transFcn, accepts):
+    def __init__(self, nodes, startNode, transFcn=None, accepts=None):
 
         self.nodes = nodes
         self.startNode = startNode

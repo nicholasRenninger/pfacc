@@ -1,4 +1,5 @@
 import Node
+import DFA
 from collections import deque
 
 
@@ -35,7 +36,7 @@ class TransitionSystem:
                  maxTime, allLanes, allVelocities, allowedLaneVels,
                  goalStates, POS):
 
-        newNodeState = Node.NodeState(initCarX, initCarY, initCarT=0,
+        newNodeState = Node.NodeState(initCarX, initCarY, carT=0,
                                       prevLane=initCarX, prevVel=initCarVel)
 
         newNodeObs = Node.Observation(atGoal=False, crashed=False,
@@ -47,13 +48,15 @@ class TransitionSystem:
 
         nodeQueue = deque()
         nodeQueue.append(initNode)
+        atGoal = False
 
         while True:
 
             currNode = nodeQueue.popleft()
             allowedLanes = self.getAdjLanes(currNode.state.carX, allLanes)
 
-            if currNode.state.carT == maxTime:
+            if (currNode.state.carT != maxTime):
+                print(currNode.state.carT, currNode.state.carX, currNode.state.carY, atGoal)
                 for lane in allowedLanes:
                     for vel in allVelocities:
 
@@ -71,7 +74,7 @@ class TransitionSystem:
                                                    prevLane=prevLane,
                                                    prevVel=prevVel)
 
-                        nextNode = Node.Node(nextState)
+                        nextNode = Node.Node(state=nextState)
 
                         allowedVelsPrevLane = allowedLaneVels[prevLane]
                         allowedVelsCarXLane = allowedLaneVels[carX]
@@ -101,8 +104,18 @@ class TransitionSystem:
                         # need to add nextNode to the adj list of the node that
                         # reached nextNode (currNode), then get ready to build
                         # up nextNode
-                        currNode.adjList(nextNode)
-                        nodeQueue.append(nextNode)
+                        currNode.adjList.append(nextNode)
+                        Nodes.append(currNode)
+
+                        if atGoal:
+                            self.DFA = DFA.DFA(nodes=Nodes, startNode=initNode)
+                            return
+                        else:
+                            nodeQueue.append(nextNode)
+
+            else:
+                self.DFA = DFA.DFA(nodes=Nodes, startNode=initNode)
+                return
 
     #
     # @brief      Calculates a boolean for whether the car is speeding
@@ -154,10 +167,12 @@ class TransitionSystem:
     #
     def inGoalStates(self, carX, carY, goalStates):
 
-        if (carX, carY) in goalStates:
-            return True
-        else:
-            return False
+        for i in range(0, len(goalStates)):
+            goalState = goalStates[i]
+            if (carX == goalState[0]) and (carY == goalState[1]):
+                return True
+
+        return False
 
     #
     # @brief      Calculates a boolean for whether the car has crashed into
