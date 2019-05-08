@@ -1,27 +1,108 @@
+import Node
+from collections import deque
+
+
 class TransitionSystem:
     # @brief    A class representing a transition system DFA abstraction
     #
     # For our purposes, this class represents the car-road transition system,
-    # with all possibile lane changes and choices of velocity allowed
+    # with all possible lane changes and choices of velocity allowed
 
     #
     # @brief      Constructs the TransitionSystem object.
     #
-    # @param      self           The TransitionSystem object instance
-    # @param      initCarX       The initial carX state. CarX ~ lane on highway
-    # @param      initCarY       The initial carY state. CarY ~ distance down
-    #                            highway
-    # @param      initCarT       The initial carT state. CarT ~ time step
-    # @param      maxTime        The maximum time step allowed
-    # @param      allLanes       A list of all possible lane numbers on the
-    #                            highway.
-    # @param      allVelocities  A list of all possible car velocities for ALL
-    #                            lanes
+    # @param      self             The TransitionSystem object instance
+    # @param      initCarX         The initial carX state. CarX ~ lane on
+    #                              highway
+    # @param      initCarY         The initial carY state. CarY ~ distance down
+    #                              highway
+    # @param      initCarT         The initial carT state. CarT ~ time step
+    # @param      initCarVel       The initial velocity of the car
+    # @param      maxTime          The maximum time step allowed
+    # @param      allLanes         A list of all possible lane numbers on the
+    #                              highway.
+    # @param      allVelocities    A list of all possible car velocities for
+    #                              ALL lanes
+    # @param      allowedLaneVels  The allowed lane velocities tuple for a
+    #                              certain lane number
+    # @param      goalStates       The goal states for the car
+    # @param      POS              The POS (physical occupancy set) object
+    #                              which contains the 3D projection of a Node
+    #                              state onto the x, y, and time grid for the
+    #                              empty road.
     #
-    def __init__(self, initCarX, initCarY, initCarT, maxTime,
-                 allLanes, allVelocities):
+    def __init__(self, initCarX, initCarY, initCarT, initCarVel,
+                 maxTime, allLanes, allVelocities, allowedLaneVels,
+                 goalStates, POS):
 
-        pass
+        newNodeState = Node.NodeState(initCarX, initCarY, initCarT=0,
+                                      prevLane=initCarX, prevVel=initCarVel)
+
+        newNodeObs = Node.Observation(atGoal=False, crashed=False,
+                                      speeding=False)
+
+        initNode = Node.Node(state=newNodeState, obs=newNodeObs)
+        Nodes = []
+        Nodes.append(initNode)
+
+        nodeQueue = deque()
+        nodeQueue.append(initNode)
+
+        while True:
+
+            currNode = nodeQueue.popleft()
+            allowedLanes = self.getAdjLanes(currNode.state.carX, allLanes)
+
+            if currNode.state.carT == maxTime:
+                for lane in allowedLanes:
+                    for vel in allVelocities:
+
+                        # populate a new node at this state
+                        currState = currNode.state
+                        carX = lane
+                        carY = currState.carY + vel
+                        carT = currState.carT + 1
+                        prevLane = currState.carX
+                        prevVel = vel
+
+                        nextState = Node.NodeState(carX=carX,
+                                                   carY=carY,
+                                                   carT=carT,
+                                                   prevLane=prevLane,
+                                                   prevVel=prevVel)
+
+                        nextNode = Node.Node(nextState)
+
+                        allowedVelsPrevLane = allowedLaneVels[prevLane]
+                        allowedVelsCarXLane = allowedLaneVels[carX]
+
+                        # determining if there is crashing
+                        minSpeedInPrevLane = min(allowedVelsPrevLane)
+                        minSpeedInCarXLane = min(allowedVelsCarXLane)
+
+                        crashed = self.crashed(prevLane, prevVel, carX, carY,
+                                               carT, minSpeedInPrevLane,
+                                               minSpeedInCarXLane, POS)
+
+                        # determining if there is speeding
+                        speeding = self.speeding(prevLane, prevVel, carX,
+                                                 allowedVelsPrevLane,
+                                                 allowedVelsCarXLane)
+
+                        # determining if the new state is in the goal state
+                        atGoal = self.inGoalStates(carX, carY, goalStates)
+
+                        # adding these observations to the new node
+                        obs = Node.Observation(atGoal=atGoal,
+                                               crashed=crashed,
+                                               speeding=speeding)
+                        nextNode.obs = obs
+
+                        # need to add nextNode to the adj list of the node that
+                        # reached nextNode (currNode), then get ready to build
+                        # up nextNode
+                        currNode.adjList(nextNode)
+                        nodeQueue.append(nextNode)
 
     #
     # @brief      Calculates a boolean for whether the car is speeding
@@ -133,3 +214,24 @@ class TransitionSystem:
             return True
         else:
             return False
+
+    #
+    # @brief      Returns a tuple of physically possible lanes to change to
+    #
+    # @param      self      The TransitionSystem object instance
+    # @param      currLane  The car's current lane number
+    # @param      allLanes  A tuple of all of the different lm
+    #
+    # @return     The physically meaningful, allowed adj lanes from currLane
+    #
+    def getAdjLanes(self, currLane, allLanes):
+
+        maxLane = max(allLanes)
+        minLane = min(allLanes)
+
+        if currLane == maxLane:
+            return (currLane - 1, currLane)
+        elif currLane == minLane:
+            return (currLane, currLane + 1)
+        else:
+            return (currLane - 1, currLane, currLane + 1)

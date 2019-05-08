@@ -70,7 +70,7 @@ class Node:
     # @param      isVisited    Indicates if this Node has been visited during a
     #                          graph search
     #
-    def __init__(self, state, index, obs=None, adjList=[],
+    def __init__(self, state, index=None, obs=None, adjList=[],
                  isAccepting=False, isVisited=False):
 
         self.state = state
