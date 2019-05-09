@@ -75,7 +75,8 @@ class TransitionSystem:
                                                    prevVel=prevVel)
 
                         nextNode = Node.Node(state=nextState,
-                                             isVisited=False)
+                                             isVisited=False,
+                                             adjList=[])
 
                         allowedVelsPrevLane = allowedLaneVels[prevLane]
                         allowedVelsCarXLane = allowedLaneVels[carX]
@@ -107,7 +108,6 @@ class TransitionSystem:
                             # that reached nextNode (currNode), then get ready
                             # to build up nextNode
                             currNode.adjList.append(nextNode)
-                            Nodes.append(currNode)
                             nodeQueue.append(nextNode)
 
             else:

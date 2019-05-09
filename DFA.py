@@ -78,8 +78,9 @@ def formAndSolveProduct(TS, LDBA):
 
         prevProdNode,\
             prevTSNode, currTSNode = nodeQueue.popleft()
-
+        print(prevProdNode.index)
         newProdNode = prevProdNode
+        print(prevProdNode.index)
 
         if not currTSNode.isVisited:
 
