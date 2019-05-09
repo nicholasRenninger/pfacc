@@ -42,7 +42,8 @@ class TransitionSystem:
         newNodeObs = Node.Observation(atGoal=False, crashed=False,
                                       speeding=False)
 
-        initNode = Node.Node(state=newNodeState, obs=newNodeObs)
+        initNode = Node.Node(state=newNodeState, obs=newNodeObs,
+                             isVisited=False)
         Nodes = []
         Nodes.append(initNode)
 
@@ -73,7 +74,8 @@ class TransitionSystem:
                                                    prevLane=prevLane,
                                                    prevVel=prevVel)
 
-                        nextNode = Node.Node(state=nextState)
+                        nextNode = Node.Node(state=nextState,
+                                             isVisited=False)
 
                         allowedVelsPrevLane = allowedLaneVels[prevLane]
                         allowedVelsCarXLane = allowedLaneVels[carX]

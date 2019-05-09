@@ -59,29 +59,37 @@ def formAndSolveProduct(TS, LDBA):
     startProdState = Node.NodeState(carX, carY, carT, q, prevLane, prevVel)
 
     index = 0
+    prevProdNode = None
+    prevTSNode = None
     startProdNode = Node.Node(state=startProdState, index=index,
-                              obs=obs, isAccepting=False, isVisited=False)
+                              obs=obs, adjList=[],
+                              isAccepting=False, isVisited=False,
+                              parent=prevProdNode)
+
     Nodes = []
     Nodes.append(startProdNode)
     index += 1
 
     nodeQueue = deque()
-    nodeQueue.append((None, startProdNode))
+    nodeQueue.append((startProdNode, prevTSNode, startTSNode))
     accepts = []
 
     while nodeQueue:
 
-        prevNode, currNode = nodeQueue.popleft()
+        prevProdNode,\
+            prevTSNode, currTSNode = nodeQueue.popleft()
 
-        if not currNode.isVisited:
+        newProdNode = prevProdNode
 
-            currNode.isVisited = True
+        if not currTSNode.isVisited:
+
+            currTSNode.isVisited = True
             keepSearching = True
 
-            if prevNode is not None:
-                currObsv = currNode.obs
+            if prevTSNode is not None:
+                currObsv = currTSNode.obs
 
-                currState = currNode.state
+                currState = currTSNode.state
 
                 carX = currState.carX
                 carY = currState.carY
@@ -89,20 +97,20 @@ def formAndSolveProduct(TS, LDBA):
                 prevLane = currState.prevLane
                 prevVel = currState.prevVel
 
-                qNew = LDBA.DFA.transFcn(prevNode.state.q, currObsv)
+                qNew = LDBA.DFA.transFcn(prevTSNode.state.q, currObsv)
                 qNewAccepts = (qNew in LDBA.DFA.accepts)
 
                 newProdState = Node.NodeState(carX, carY, carT, qNew,
                                               prevLane, prevVel)
                 newProdNode = Node.Node(state=newProdState, index=index,
                                         isAccepting=qNewAccepts,
-                                        parent=prevNode)
+                                        parent=prevProdNode)
 
-                # anything after state 1 will not work
+                # anything Node after reaching state 1 will not work
                 keepSearching = (qNew != 1)
                 if keepSearching:
                     accepts.append(index)
-                    prevNode.adjList.append(newProdNode)
+                    prevProdNode.adjList.append(newProdNode)
 
                 # goal state is defined in LDBA as q = 2
                 atGoal = (qNew == 2)
@@ -111,14 +119,21 @@ def formAndSolveProduct(TS, LDBA):
 
                 index += 1
 
-                print(carX, carY, carT, prevLane, qNew, currObsv)
+                print('X:', carX,
+                      'Y:', carY,
+                      'T:', carT,
+                      'prevLane:', prevLane,
+                      'q:', qNew,
+                      'atGoal:', currObsv.atGoal,
+                      'crashed:', currObsv.crashed,
+                      'speeding:', currObsv.speeding)
 
             if keepSearching:
                 # now need after we have relaxed some of da edges its time to
                 # do the BFS queuing
-                for neighbor in currNode.adjList:
+                for neighbor in currTSNode.adjList:
                     if not neighbor.isVisited:
-                        nodeQueue.append((currNode, neighbor))
+                        nodeQueue.append((newProdNode, currTSNode, neighbor))
 
     # if you get here things have gone horribly wrong
     return None
