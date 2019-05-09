@@ -12,14 +12,14 @@ def getSimSettings():
     ########################################################
 
     # pY ranges from 0 - 4000
-    maxDist = 1700
+    maxDist = 800
 
     # simulate maxTime time steps
-    maxTime = 30
+    maxTime = 10
 
     goalX = 0
-    goalYMin = 1500
-    goalYMax = 1600
+    goalYMin = 600
+    goalYMax = 700
 
     goalStates = makeGoalStates(goalX, goalYMin, goalYMax)
 
