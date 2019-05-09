@@ -112,22 +112,24 @@ def formAndSolveProduct(TS, LDBA):
                     accepts.append(index)
                     prevProdNode.adjList.append(newProdNode)
 
-                # goal state is defined in LDBA as q = 2
-                atGoal = (qNew == 2)
-                if atGoal:
-                    return newProdNode
-
-                index += 1
-
                 print('X:', carX,
                       'Y:', carY,
                       'T:', carT,
+                      'index:', index,
+                      'parentIdx:', newProdNode.parent.index,
                       'prevLane:', prevLane,
                       'q:', qNew,
                       'atGoal:', currObsv.atGoal,
                       'crashed:', currObsv.crashed,
                       'speeding:', currObsv.speeding,
                       'keepSearching:', keepSearching)
+
+                # goal state is defined in LDBA as q = 2
+                atGoal = (qNew == 2)
+                if atGoal:
+                    return newProdNode
+
+                index += 1
 
             if keepSearching:
                 # now need after we have relaxed some of da edges its time to
@@ -154,11 +156,14 @@ def getPathToRootFromLeaf(leaf):
     nodeQueue = deque()
     Nodes = []
 
+    # putting nodes in a stack so we can reverse their order
     while currNode is not None:
         nodeQueue.append(currNode)
         print('here')
         currNode = currNode.parent
 
+    # popping the stack into an array of Node, which containt the ordered path
+    # from the root to the leaf Node.
     while nodeQueue:
         currNode = nodeQueue.pop()
         Nodes.append(currNode)
