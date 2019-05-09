@@ -61,10 +61,14 @@ def main():
     print('calculating the product automata')
 
     acceptingGoalNode = DFA.formAndSolveProduct(TS=TS, LDBA=LDBAObj)
+    optimalPath = DFA.getPathToRootFromLeaf(acceptingGoalNode)
 
     print('found the final solution node in the product')
 
-    print(acceptingGoalNode)
+    ########################################################
+    # Print Results
+    ########################################################
+
 
 
 if __name__ == "__main__":

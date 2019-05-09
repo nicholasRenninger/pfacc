@@ -1,3 +1,4 @@
+from __future__ import print_function
 import Node
 from collections import deque
 
@@ -121,3 +122,36 @@ def formAndSolveProduct(TS, LDBA):
 
     # if you get here things have gone horribly wrong
     return None
+
+
+#
+# @brief      Gets the path to root from leaf of the DFA
+#
+# @param      leaf  The leaf Node object
+#
+# @return     A list of Node objects with the root at index = 0 and the leaf at
+#             the last index
+#
+def getPathToRootFromLeaf(leaf):
+
+    currNode = leaf
+    nodeQueue = deque()
+    Nodes = []
+
+    while currNode is not None:
+        nodeQueue.append(currNode)
+
+        currNode = currNode.parent
+
+    while nodeQueue:
+        currNode = nodeQueue.pop()
+        Nodes.append(currNode)
+
+        state = currNode.state
+
+        print('Lane:', state.carX,
+              'Distance:', state.carY,
+              'Time:', state.carT,
+              'Velocity:', state.prevVel)
+
+    return Nodes
