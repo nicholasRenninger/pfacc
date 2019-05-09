@@ -78,9 +78,7 @@ def formAndSolveProduct(TS, LDBA):
 
         prevProdNode,\
             prevTSNode, currTSNode = nodeQueue.popleft()
-        print(prevProdNode.index)
         newProdNode = prevProdNode
-        print(prevProdNode.index)
 
         if not currTSNode.isVisited:
 
@@ -113,17 +111,17 @@ def formAndSolveProduct(TS, LDBA):
                     accepts.append(index)
                     prevProdNode.adjList.append(newProdNode)
 
-                print('X:', carX,
-                      'Y:', carY,
-                      'T:', carT,
-                      'index:', newProdNode.index,
-                      'parentIdx:', newProdNode.parent.index,
-                      'prevLane:', prevLane,
-                      'q:', qNew,
-                      'atGoal:', currObsv.atGoal,
-                      'crashed:', currObsv.crashed,
-                      'speeding:', currObsv.speeding,
-                      'keepSearching:', keepSearching)
+                # print('X:', carX,
+                #       'Y:', carY,
+                #       'T:', carT,
+                #       'index:', newProdNode.index,
+                #       'parentIdx:', newProdNode.parent.index,
+                #       'prevLane:', prevLane,
+                #       'q:', qNew,
+                #       'atGoal:', currObsv.atGoal,
+                #       'crashed:', currObsv.crashed,
+                #       'speeding:', currObsv.speeding,
+                #       'keepSearching:', keepSearching)
 
                 # goal state is defined in LDBA as q = 2
                 atGoal = (qNew == 2)
@@ -160,7 +158,6 @@ def getPathToRootFromLeaf(leaf):
     # putting nodes in a stack so we can reverse their order
     while currNode is not None:
         nodeQueue.append(currNode)
-        print('here')
         currNode = currNode.parent
 
     # popping the stack into an array of Node, which containt the ordered path
