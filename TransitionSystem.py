@@ -85,27 +85,28 @@ class TransitionSystem:
                         crashed = self.crashed(prevLane, prevVel, carX, carY,
                                                carT, minSpeedInPrevLane,
                                                minSpeedInCarXLane, POS)
+                        if not crashed:
 
-                        # determining if there is speeding
-                        speeding = self.speeding(prevLane, prevVel, carX,
-                                                 allowedVelsPrevLane,
-                                                 allowedVelsCarXLane)
+                            # determining if there is speeding
+                            speeding = self.speeding(prevLane, prevVel, carX,
+                                                     allowedVelsPrevLane,
+                                                     allowedVelsCarXLane)
 
-                        # determining if the new state is in the goal state
-                        atGoal = self.inGoalStates(carX, carY, goalStates)
+                            # determining if the new state is in the goal state
+                            atGoal = self.inGoalStates(carX, carY, goalStates)
 
-                        # adding these observations to the new node
-                        obs = Node.Observation(atGoal=atGoal,
-                                               crashed=crashed,
-                                               speeding=speeding)
-                        nextNode.obs = obs
+                            # adding these observations to the new node
+                            obs = Node.Observation(atGoal=atGoal,
+                                                   crashed=crashed,
+                                                   speeding=speeding)
+                            nextNode.obs = obs
 
-                        # need to add nextNode to the adj list of the node that
-                        # reached nextNode (currNode), then get ready to build
-                        # up nextNode
-                        currNode.adjList.append(nextNode)
-                        Nodes.append(currNode)
-                        nodeQueue.append(nextNode)
+                            # need to add nextNode to the adj list of the node
+                            # that reached nextNode (currNode), then get ready
+                            # to build up nextNode
+                            currNode.adjList.append(nextNode)
+                            Nodes.append(currNode)
+                            nodeQueue.append(nextNode)
 
             else:
                 self.DFA = DFA.DFA(nodes=Nodes, startNode=initNode)

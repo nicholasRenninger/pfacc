@@ -95,7 +95,9 @@ def formAndSolveProduct(TS, LDBA):
                                         isAccepting=qNewAccepts,
                                         parent=prevNode)
 
-                if newProdNode.isAccepting:
+                # anything after state 1 will not work
+                keepSearching = (qNew != 1)
+                if keepSearching:
                     accepts.append(index)
                     prevNode.adjList.append(newProdNode)
 
@@ -108,11 +110,12 @@ def formAndSolveProduct(TS, LDBA):
 
                 print(carX, carY, carT, prevLane, qNew, currObsv)
 
-            # now need after we have relaxed some of da edges its time to
-            # do the BFS queuing
-            for neighbor in currNode.adjList:
-                if not neighbor.isVisited:
-                    nodeQueue.append((currNode, neighbor))
+            if keepSearching:
+                # now need after we have relaxed some of da edges its time to
+                # do the BFS queuing
+                for neighbor in currNode.adjList:
+                    if not neighbor.isVisited:
+                        nodeQueue.append((currNode, neighbor))
 
     # if you get here things have gone horribly wrong
     return None
