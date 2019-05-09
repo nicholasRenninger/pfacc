@@ -115,7 +115,7 @@ def formAndSolveProduct(TS, LDBA):
                 print('X:', carX,
                       'Y:', carY,
                       'T:', carT,
-                      'index:', index,
+                      'index:', newProdNode.index,
                       'parentIdx:', newProdNode.parent.index,
                       'prevLane:', prevLane,
                       'q:', qNew,
