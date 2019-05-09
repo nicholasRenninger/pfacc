@@ -86,7 +86,7 @@ def formAndSolveProduct(TS, LDBA):
             currTSNode.isVisited = True
             keepSearching = True
 
-            if prevTSNode is not None:
+            if (prevTSNode is not None) and (prevProdNode is not None):
                 currObsv = currTSNode.obs
 
                 currState = currTSNode.state
@@ -97,7 +97,7 @@ def formAndSolveProduct(TS, LDBA):
                 prevLane = currState.prevLane
                 prevVel = currState.prevVel
 
-                qNew = LDBA.DFA.transFcn(prevTSNode.state.q, currObsv)
+                qNew = LDBA.DFA.transFcn(prevProdNode.state.q, currObsv)
                 qNewAccepts = (qNew in LDBA.DFA.accepts)
 
                 newProdState = Node.NodeState(carX, carY, carT, qNew,
