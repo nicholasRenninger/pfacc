@@ -126,7 +126,8 @@ def formAndSolveProduct(TS, LDBA):
                       'q:', qNew,
                       'atGoal:', currObsv.atGoal,
                       'crashed:', currObsv.crashed,
-                      'speeding:', currObsv.speeding)
+                      'speeding:', currObsv.speeding,
+                      'keepSearching:', keepSearching)
 
             if keepSearching:
                 # now need after we have relaxed some of da edges its time to
@@ -155,7 +156,7 @@ def getPathToRootFromLeaf(leaf):
 
     while currNode is not None:
         nodeQueue.append(currNode)
-
+        print('here')
         currNode = currNode.parent
 
     while nodeQueue:
