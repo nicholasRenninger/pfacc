@@ -75,6 +75,8 @@ def formAndSolveProduct(TS, LDBA):
         if not currNode.isVisited:
 
             currNode.isVisited = True
+            keepSearching = True
+
             if prevNode is not None:
                 currObsv = currNode.obs
 
