@@ -78,6 +78,7 @@ def plotCarAndPOS(POSMat, optimalPath, saveTitle,
 
     fig = plt.figure()
     image = plt.imread('car.png')
+    shouldSavePlot = True
 
     # make a subplot for the state of the road for each time step
     for t in range(0, maxTime):
@@ -183,8 +184,9 @@ def plotCarAndPOS(POSMat, optimalPath, saveTitle,
 
     plt.tight_layout()
     plt.subplots_adjust(wspace=0.2, hspace=0.8)
-    plt.savefig(saveTitle)
-    print('wrote figure to ', saveTitle)
+    if shouldSavePlot:
+        plt.savefig(saveTitle)
+        print('wrote figure to ', saveTitle)
     plt.show()
 
 
