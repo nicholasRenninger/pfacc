@@ -1,4 +1,9 @@
+import os
+
+
 def getSimSettings():
+
+    savePath = os.path.join('..', 'Figures', 'results.pdf')
 
     ########################################################
     # defining road simulation properties
@@ -51,7 +56,8 @@ def getSimSettings():
     initCarVel = min(allowedLaneVelocites[initCarX])
 
     return (allLanes, allVelocities, allowedLaneVelocites, maxDist,
-            maxTime, goalStates, initCarX, initCarY, initCarT, initCarVel)
+            maxTime, goalStates, initCarX, initCarY, initCarT, initCarVel,
+            savePath)
 
 
 def makeGoalStates(goalX, goalYMin, goalYMax):

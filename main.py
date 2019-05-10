@@ -1,3 +1,4 @@
+from __future__ import print_function
 import OS_Calls
 import initialize
 import POS
@@ -17,7 +18,8 @@ def main():
     (allLanes, allVelocities,
      allowedLaneVelocites, maxDist,
      maxTime, goalStates, initCarX,
-     initCarY, initCarT, initCarVel) = initialize.getSimSettings()
+     initCarY, initCarT, initCarVel,
+     savePath) = initialize.getSimSettings()
 
     print('defined simulation properties')
 
@@ -61,14 +63,23 @@ def main():
     print('calculating the product automata')
 
     acceptingGoalNode = DFA.formAndSolveProduct(TS=TS, LDBA=LDBAObj)
-    optimalPath = DFA.getPathToRootFromLeaf(acceptingGoalNode)
 
-    print('found the final solution node in the product')
+    if acceptingGoalNode is not None:
+        print('found the final solution node in the product:')
+    else:
+        print('found no accepting path through product')
+
+    optimalPath = DFA.getPathToRootFromLeaf(acceptingGoalNode)
 
     ########################################################
     # Print Results
     ########################################################
 
+    if acceptingGoalNode is not None:
+        print('plotting results...')
+        POS.plotCarAndPOS(POSMat, optimalPath, savePath,
+                          initCarY, allLanes, goalStates, maxTime)
+        print('done. Have a swagtastic day!')
 
 
 if __name__ == "__main__":

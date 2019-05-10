@@ -111,6 +111,7 @@ def formAndSolveProduct(TS, LDBA):
                     accepts.append(index)
                     prevProdNode.adjList.append(newProdNode)
 
+                # turn on for debug :)
                 # print('X:', carX,
                 #       'Y:', carY,
                 #       'T:', carT,
