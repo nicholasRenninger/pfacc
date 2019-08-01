@@ -41,7 +41,7 @@ All configuration of the code is done in `initialize.py`. Changing these setting
 
 *Our problem is to guide the ego car through a multi-lane highway traffic scenario, where each lane has different acceptable speed ranges, such that the ego car exits the highway as quickly as possible while guaranteeing that the ego car does not crash into any other vehicles.*
 
-The problem is solved using a *formal methods* inspired control synthesis framework, where the specification the ego car must follow is given as an automaton and the environment (highway and other cars) is given as another finite transition system automaton. We then take the product of the two automaton and then solve the deterministic game with a time-optimizing graph reachability algorithm to find a path the through the product automaton that is both **accepting** and **time-optimal**.
+The problem is solved using a **formal methods** inspired control synthesis framework, where the specification the ego car must follow is given as an automaton and the environment (highway and other cars) is given as another finite transition system automaton. We then take the product of the two automaton and then solve the deterministic game with a time-optimizing graph reachability algorithm to find a path the through the product automaton that is both **accepting** and **time-optimal**.
 
 The specification that the synthesizes ego car controller is guaranteed is expressed as a Buchi Automaton and is shown below. 
 
