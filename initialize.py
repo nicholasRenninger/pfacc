@@ -3,7 +3,7 @@ import os
 
 def getSimSettings():
 
-    savePath = os.path.join('..', 'Figures', 'results.pdf')
+    savePath = os.path.join('Figures', 'results.pdf')
 
     ########################################################
     # defining road simulation properties
@@ -22,7 +22,7 @@ def getSimSettings():
     # pY ranges from 0 - 4000
     # maxDist = 800
     # maxDist = 1600
-    maxDist = 500
+    maxDist = 400
 
     # simulate maxTime time steps
     maxTime = 6

@@ -11,33 +11,41 @@ LTL to Control Synthesis (using formal methods concepts) Framework for a Basic H
 
 
 ### Dependencies
-This module was built in raw **python 3+**. the only external modules used were:
+This module was built in raw **python 2 ONLY**. the only external modules used were:
 
 * `collections`: for their implementation of a queue
 * `numpy`: for the matrix representation of the occupancy set
 * `random`: for randomly generating traffic patterns through the occupancy set
+* `matplotlib` *version 2+*: for plotting our final results. *You must have version>=2 or the plotting module will error out*
 
 To get these dependencies, simply type:
-* `pip3 install collections`
-* `pip3 install numpy` 
-* `pip3 install random` 
+* `pip install collections`
+* `pip install numpy`
+* `pip install random`
+* `pip install matplotlib`
 
-into a terminal that has the `*/PYTHON_3XX_INSTALL_DIR/Scripts/` and `*/PYTHON_3XX_INSTALL_DIR/` directories on its path, and you should be able to get these dependencies if you do not have them already.
+into a terminal that has the `*/PYTHON_2XX_INSTALL_DIR/Scripts/` and `*/PYTHON_2XX_INSTALL_DIR/` directories on its path, and you should be able to get these dependencies if you do not have them already.
 
 
-## Running the Source Code
+### Running the Source Code
 
-Navigate to the `autonomousCarControlSynthesis` directory and from a terminal with the current path being: `*/autonomousCarControlSynthesis/`, simply type `python3 main.py` to run our code.
+Navigate to the `autonomousCarControlSynthesis` directory and from a terminal with the current path being: `*/autonomousCarControlSynthesis/`, simply type `python main.py` to run our code. If you encounter errors running `python main.py` it is worth trying running like `pythonw main.py` as this has been found to be necessary on some anaconda installs of python2 on macOS.
+
+### Configuring the Simulation
+
+All configuration of the code is done in `initialize.py`. Changing these settings will change all relevant parameters in the simulation.
 
 ---
 
-## Results
+## DO NOT USE PYTHON 3
 
-Unfortunately, we ran into a nasty python / system level error that was unresolveable after much research:
+Unfortunately, if you use python3, we ran into a nasty python / system level error that was unresolvable after much research:
 
 ```powershell
-Traceback (most recent call last):                                             File ".\main.py", line 71, in <module>
-    main()                                                                     File ".\main.py", line 63, in main
+Traceback (most recent call last):
+File ".\main.py", line 71, in <module>
+    main()                                                                     
+    File ".\main.py", line 63, in main
         acceptingGoalNode = DFA.formAndSolveProduct(TS=TS, LDBA=LDBAObj)       
 
 SystemError: error return without exception set

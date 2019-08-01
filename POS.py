@@ -83,7 +83,7 @@ def plotCarAndPOS(POSMat, optimalPath, saveTitle,
     # make a subplot for the state of the road for each time step
     for t in range(0, maxTime):
 
-        ax = fig.add_subplot(3, 3, t + 1)
+        ax = fig.add_subplot(3, 2, t + 1)
 
         # making the axis look like asphalt
         ax.set_facecolor((0.156, 0.149, 0.129))
@@ -175,7 +175,7 @@ def plotCarAndPOS(POSMat, optimalPath, saveTitle,
 
         minY = min(allLanes) - 0.6
         maxY = max(allLanes) + 0.6
-        maxX = min(xGoal) * 1.1
+        maxX = min(xGoal) * 1.2
         minX = 0
 
         plt.xlim((minX, maxX))
@@ -185,7 +185,11 @@ def plotCarAndPOS(POSMat, optimalPath, saveTitle,
     plt.tight_layout()
     plt.subplots_adjust(wspace=0.2, hspace=0.8)
     if shouldSavePlot:
-        plt.savefig(saveTitle)
+        fig = plt.gcf()
+        fig.canvas.manager.full_screen_toggle()
+        fig.show()
+        fig.set_size_inches((11, 8.5), forward=False)
+        plt.savefig(saveTitle, dpi=500)
         print('wrote figure to ', saveTitle)
     plt.show()
 
