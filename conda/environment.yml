@@ -1,0 +1,7 @@
+name: pfacc
+channels:
+  - defaults
+dependencies:
+  - python=3
+prefix: /Users/nicholasrenninger/anaconda3/envs/pfacc
+
