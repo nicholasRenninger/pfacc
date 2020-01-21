@@ -34,16 +34,16 @@ class DFA:
 #             produces the shortest path through the graph and thus this trace
 #             in the product is actually the optimal controller.
 #
-# @param      TS    A TransistionSystem to product with the LBDA, containing
-#                   the physical modeling transitions
-# @param      LDBA  The LDBA (LTL Deterministic Buchi Automata) encoding the
-#                   LTL specification on TS
+# @param      DTS    A TransistionSystem to product with the LBDA, containing
+#                    the physical modeling transitions
+# @param      LDBA   The LDBA (LTL Deterministic Buchi Automata) encoding the
+#                    LTL specification on DTS
 #
 # @return     the first Node object in the product to accept
 #
-def formAndSolveProduct(TS, LDBA):
+def formAndSolveProduct(DTS, LDBA):
 
-    startTSNode = TS.DFA.startNode
+    startTSNode = DTS.DFA.startNode
     startLDBANode = LDBA.DFA.startNode
 
     startTSState = startTSNode.state

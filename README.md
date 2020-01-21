@@ -74,7 +74,7 @@ Traceback (most recent call last):
 File ".\main.py", line 71, in <module>
     main()                                                                     
     File ".\main.py", line 63, in main
-        acceptingGoalNode = DFA.formAndSolveProduct(TS=TS, LDBA=LDBAObj)       
+        acceptingGoalNode = DFA.formAndSolveProduct(DTS=DTS, LDBA=LDBAObj)       
 
 SystemError: error return without exception set
 ```

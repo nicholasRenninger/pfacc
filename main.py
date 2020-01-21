@@ -39,10 +39,11 @@ def main():
 
     print('building the transition system...')
 
-    TS = TransitionSystem.TransitionSystem(initCarX, initCarY, initCarT,
-                                           initCarVel, maxTime, allLanes,
-                                           allVelocities, allowedLaneVelocites,
-                                           goalStates, POSMat)
+    DTS = TransitionSystem.TransitionSystem(initCarX, initCarY, initCarT,
+                                            initCarVel, maxTime, allLanes,
+                                            allVelocities,
+                                            allowedLaneVelocites,
+                                            goalStates, POSMat)
 
     print('built the transition system')
 
@@ -62,7 +63,7 @@ def main():
 
     print('calculating the product automata')
 
-    acceptingGoalNode = DFA.formAndSolveProduct(TS=TS, LDBA=LDBAObj)
+    acceptingGoalNode = DFA.formAndSolveProduct(DTS=DTS, LDBA=LDBAObj)
 
     if acceptingGoalNode is not None:
         print('found the final solution node in the product:')
